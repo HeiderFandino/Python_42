@@ -2,23 +2,20 @@ import sys
 
 
 def score_analytics() -> None:
-    print("=== Player Score Analytics ===")
     scores: list[int] = []
-
-    for argument in sys.argv[1:]:
+    print("=== Player Score Analytics ===")
+    for argv in sys.argv[1:]:
         try:
-            score = int(argument)
+            score = int(argv)
             scores += [score]
         except ValueError:
-            print(f"Invalid parameter: '{argument}'")
-
+            print(f"Invalid parameter: '{argv}'")
     if len(scores) == 0:
         print(
             "No scores provided. Usage: "
-            "python3 ft_score_analytics.py <score1> <score2> ..."
-        )
+            "python3 ft_score_analytics.py <score1> <score2> ...")
         return
-
+    total_player = len(scores)
     total_score = sum(scores)
     average_score = total_score / len(scores)
     high_score = max(scores)
@@ -26,7 +23,7 @@ def score_analytics() -> None:
     score_range = high_score - low_score
 
     print(f"Scores processed: {scores}")
-    print(f"Total players: {len(scores)}")
+    print(f"Total players: {total_player}")
     print(f"Total score: {total_score}")
     print(f"Average score: {average_score}")
     print(f"High score: {high_score}")
