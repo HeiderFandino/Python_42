@@ -122,6 +122,7 @@ class LogProcessor(DataProcessor):
                 self._data.append((self._next_rank, log_str))
                 self._next_rank += 1
 
+
 def main() -> None:
     print("=== Code Nexus - Data Processor ===")
 
@@ -146,7 +147,7 @@ def main() -> None:
     except ValueError as error:
         print(f" Got exception: {error}")
 
-    numeric_data = [1, 2, 3, 4, 5]
+    numeric_data: list[int | float] = [1, 2, 3, 4, 5]
     print(f" Processing data: {numeric_data}")
     numeric_processor.ingest(numeric_data)
 
