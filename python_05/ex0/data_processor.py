@@ -122,49 +122,64 @@ class LogProcessor(DataProcessor):
                 self._data.append((self._next_rank, log_str))
                 self._next_rank += 1
 
-
 def main() -> None:
     print("=== Code Nexus - Data Processor ===")
 
     print("\nTesting Numeric Processor...")
     numeric_processor = NumericProcessor()
 
-    print(f"Validate 42: {numeric_processor.validate(42)}")
     print(
-        f"Validate 'Hello': "
+        " Trying to validate input '42': "
+        f"{numeric_processor.validate(42)}"
+    )
+    print(
+        " Trying to validate input 'Hello': "
         f"{numeric_processor.validate('Hello')}"
     )
 
+    print(
+        " Test invalid ingestion of string 'foo' "
+        "without prior validation:"
+    )
     try:
         numeric_processor.ingest("foo")
     except ValueError as error:
-        print(f"Got exception: {error}")
+        print(f" Got exception: {error}")
 
-    numeric_processor.ingest([1, 2, 3, 4, 5])
+    numeric_data = [1, 2, 3, 4, 5]
+    print(f" Processing data: {numeric_data}")
+    numeric_processor.ingest(numeric_data)
 
+    print(" Extracting 3 values...")
     for _ in range(3):
         rank, value = numeric_processor.output()
-        print(f"Numeric value {rank}: {value}")
+        print(f" Numeric value {rank}: {value}")
 
     print("\nTesting Text Processor...")
     text_processor = TextProcessor()
 
-    print(f"Validate 42: {text_processor.validate(42)}")
+    print(
+        " Trying to validate input '42': "
+        f"{text_processor.validate(42)}"
+    )
 
-    text_processor.ingest(["Hello", "Nexus", "World"])
+    text_data = ["Hello", "Nexus", "World"]
+    print(f" Processing data: {text_data}")
+    text_processor.ingest(text_data)
 
+    print(" Extracting 1 value...")
     rank, value = text_processor.output()
-    print(f"Text value {rank}: {value}")
+    print(f" Text value {rank}: {value}")
 
     print("\nTesting Log Processor...")
     log_processor = LogProcessor()
 
     print(
-        f"Validate 'Hello': "
+        " Trying to validate input 'Hello': "
         f"{log_processor.validate('Hello')}"
     )
 
-    log_processor.ingest([
+    log_data = [
         {
             "log_level": "NOTICE",
             "log_message": "Connection to server",
@@ -173,11 +188,15 @@ def main() -> None:
             "log_level": "ERROR",
             "log_message": "Unauthorized access!!",
         },
-    ])
+    ]
 
+    print(f" Processing data: {log_data}")
+    log_processor.ingest(log_data)
+
+    print(" Extracting 2 values...")
     for _ in range(2):
         rank, value = log_processor.output()
-        print(f"Log entry {rank}: {value}")
+        print(f" Log entry {rank}: {value}")
 
 
 if __name__ == "__main__":
