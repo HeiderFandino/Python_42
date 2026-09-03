@@ -217,5 +217,24 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-#vim
-*.swp 
+# Vim
+*.swp
+*.swo
+*.swn
+*~
+
+# Editors and IDEs
+.vscode/
+.idea/
+
+# Pyright type-checker caches
+.pyright/
+.pyright_cache/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+
+# Local temporary files
+*.tmp
+*.temp
