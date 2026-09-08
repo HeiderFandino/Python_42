@@ -238,3 +238,5 @@ Thumbs.db
 # Local temporary files
 *.tmp
 *.temp
+
+*:Zone.Identifier
